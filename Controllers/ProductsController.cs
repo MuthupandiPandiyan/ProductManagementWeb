@@ -19,26 +19,30 @@ namespace ProductManagementWeb.Controllers
         }
 
 
-        // Action to display list of products
+        // Display products details
         public IActionResult Index()
         {
             return View();
         }
+        // Display list of products added in cart page
         public IActionResult ShoppingCart()
         {
             return View();
         }
+        // Display list of products 
         public IActionResult Product()
         {
             return View();
         }
+
+        // get list of products details
         public async Task<List<ProductMaster>> ProductDetails()
         {
             return await _context.Products.ToListAsync();
         }
 
 
-       
+        // get product detail for edit
         public async Task<ProductMaster> GetEditDetails(int? id)
         {
             var product = await _context.Products
@@ -47,10 +51,9 @@ namespace ProductManagementWeb.Controllers
             return product;
         }
 
-
-        // POST: Products/Create
-        [HttpPost]
+        //create new product detail 
        
+        [HttpPost]      
         public async Task<IActionResult> CreateData([FromBody] ProductMaster addProduct)
         {
 
@@ -63,6 +66,9 @@ namespace ProductManagementWeb.Controllers
             return Ok();
         }
 
+
+        //update existing product detail 
+
         [HttpPost]     
         public async Task<IActionResult> UpdateData([FromBody] ProductMaster updateProduct)
         {
@@ -74,9 +80,8 @@ namespace ProductManagementWeb.Controllers
             }
             return Ok();
         }
-      
 
-        // POST: Products/Delete/5
+        //delete existing product detail 
         [HttpPost]       
         public async Task<IActionResult> DeleteConfirmed(int id)
         {

@@ -15,13 +15,14 @@ namespace ProductManagementWeb.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
         }
-
+        //Register page view
         [HttpGet]
         public IActionResult Register()
         {
             return View();
         }
 
+        //Register new user
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
@@ -41,13 +42,14 @@ namespace ProductManagementWeb.Controllers
             }
             return View(model);
         }
-
+        //Login page view
         [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
 
+        //Login page action
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
@@ -62,7 +64,7 @@ namespace ProductManagementWeb.Controllers
             }
             return View(model);
         }
-
+        //Logout 
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
