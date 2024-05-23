@@ -1,0 +1,29 @@
+﻿@{ ViewBag.Title = "MyCart";}
+
+
+
+
+<h2 style="text-align: center;">Product List</h2>
+
+<div class="row" id="MyCartTable" style="overflow:auto;">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>S.No</th>
+                <th>Name</th>
+                <th>Qty</th>
+                <th>Price</th>
+                <th>Total Price</th>
+               
+            </tr>
+        </thead>
+        <tbody id="MyCartTblBody">
+        </tbody>
+        <tfoot>
+        </tfoot>
+    </table>
+</div>
+
+@section Scripts {
+    <script src="~/js/Scripts/ShoppingCartScript.js"></script>
+}

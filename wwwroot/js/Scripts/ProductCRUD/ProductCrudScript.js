@@ -19,8 +19,8 @@ function getProductDetailsSuccess(result) {
             <td>${x.description}</td>
             <td>${x.price.toFixed(2)}</td>
             <td>${x.quantity} </td>               
-            <td><a edit-prod-id=${x.id}>Edit</a> </td>
-            <td><a del-product-id=${x.id}>Delete</a></td>
+            <td><button type="button" class="btn btn-primary" edit-prod-id=${x.id}>Edit</button> </td>
+            <td><button type="button" class="btn btn-warning" del-product-id=${x.id}>Delete</button></td>
         </tr>`);
         });
     }
@@ -32,21 +32,16 @@ function getProductDetailsSuccess(result) {
 
 $(document).on("click", "[del-product-id]", function () {
     var productID = $(this).attr("del-product-id");
-    _Ajax("post", "/products/deleteconfirmed", { id: productID }, "", "application/json", deleteProdSuccess, null, true, false);
+    _Ajax("post", "/products/deleteconfirmed?id=" + productID, "", "", "application/json", deleteProdSuccess, null, true, false);
 });
+$(document).on("click", "[edit-prod-id]", function () {
+    var productID = $(this).attr("edit-prod-id");
+    _Ajax("get", "/products/geteditdetails", { id: productID }, "", "application/json", editProdSuccess, null, true, false);
 
+});
 function deleteProdSuccess() {
     getProductDetails();
 }
-
-$(document).on("keypress", "[inp-prod-id]", function (e) {
-    var charCode = (e.which) ? e.which : event.keyCode
-    if (String.fromCharCode(charCode).match(/[^0-9]/g))
-        return false;
-});
-
-
-
 
 
 function editProdSuccess(result) {
@@ -61,22 +56,15 @@ function editProdSuccess(result) {
 function ProductModalFunc() {
     $("#ProductModal input").val("");
     $('#ProductModal').show();
-    //var PriceList_Add = [];
-
-    //var fd = $('#FromDateID').val();
-    //var td = $('#ToDateID').val();
-    //var CurrencyID = $("#CurrencyId").val();
-    //var BPCategoryID = $("#BpCategoryI").val();
 }
 
 function saveProdDetails() {
-    var id=$('#productId').val();
-    var name= $('#nameId').val();
+    var name = $('#nameId').val();
     var desc = $('#descriptionTd').val();
     var price = $('#priceId').val();
     var qty = $('#quantityId').val();
-   
-    _Ajax("post", "/products/createdata", { Name: name, Description: desc, Price: price, Quantity: qty}, "", "application/json", addProdSuccess, null, true, false);
+
+    _Ajax("post", "/products/createdata", { Name: name, Description: desc, Price: price, Quantity: qty }, "", "application/json", addProdSuccess, null, true, false);
 
 }
 function addProdSuccess() {
