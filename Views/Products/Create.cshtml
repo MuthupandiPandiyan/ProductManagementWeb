@@ -1,0 +1,23 @@
+﻿@model ProductManagementWeb.Models.ProductMaster
+
+<h1>Create Product</h1>
+
+<form asp-action="Create">
+    <div>
+        <label asp-for="Name">Name:</label>
+        <input asp-for="Name" />
+    </div>
+    <div>
+        <label asp-for="Description">Description:</label>
+        <input asp-for="Description" />
+    </div>
+    <div>
+        <label asp-for="Price">Price:</label>
+        <input asp-for="Price" />
+    </div>
+    <div>
+        <label asp-for="Quantity">Quantity:</label>
+        <input asp-for="Quantity" />
+    </div>
+    <button type="submit">Create</button>
+</form>

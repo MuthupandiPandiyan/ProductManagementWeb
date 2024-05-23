@@ -1,0 +1,169 @@
+﻿
+@{ ViewBag.Title = "Product Details"; }
+
+<style>
+    #ProductTable th, #ProductTable td {
+        white-space: nowrap;
+    }
+</style>
+
+<h2 style="text-align: center;">Product Details</h2>
+
+<div id="ProductDiv">
+    <div class="row" id="ProductTable" style="overflow:auto;">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody id="ProductTblBody">
+            </tbody>
+            <tfoot>
+            </tfoot>
+        </table>
+    </div>
+
+    <div class="row">
+        <button class="btn btn-primary" onclick="ProductModalFunc();">Create</button>
+    </div>
+</div>
+
+
+<div class="modal" id="ProductModal" >
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 style="text-align:center">Product Create</h5>
+               
+            </div>
+
+            <div class="modal-body">
+                <input type="text" id="productId" hidden />
+                <div class="col-sm-12">
+
+                    <div class="form-group" style="margin:10px;">
+                        <div class="row">
+                            <label class="col-sm-3 control-label" style="padding: 10px; font-weight: bold;">Name </label>
+                            <div class="col-sm-7">
+                                <input type="text" id="nameId" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin:10px;">
+                        <div class="row">
+                            <label class="col-sm-3 control-label" style="padding: 10px; font-weight: bold;">Description </label>
+                            <div class="col-sm-7">
+                                <textarea type="textare" id="descriptionTd" class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin:10px;">
+                        <div class="row">
+                            <label class="col-sm-3 control-label" style="padding: 10px; font-weight: bold;">Price </label>
+                            <div class="col-sm-7">
+                                <input type="text" id="priceId" class="form-control" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin:10px;">
+                        <div class="row">
+                            <label class="col-sm-3 control-label" style="padding: 10px; font-weight: bold;">Quantity </label>
+                            <div class="col-sm-7">
+                                <input type="text" id="quantityId" class="form-control" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*?)\..*/g, '$1');" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success " onclick="saveProdDetails();">Save</button>
+                <button type="button" class="btn btn-secondary " id="CloseButton">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="ProductUpdateModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 style="text-align:center">Product Update</h5>
+
+            </div>
+
+            <div class="modal-body">
+                <input type="text" id="productIdEdit" hidden />
+                <div class="col-sm-12">
+
+                    <div class="form-group" style="margin:10px;">
+                        <div class="row">
+                            <label class="col-sm-3 control-label" style="padding: 10px; font-weight: bold;">Name </label>
+                            <div class="col-sm-7">
+                                <input type="text" id="nameIdEdit" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin:10px;">
+                        <div class="row">
+                            <label class="col-sm-3 control-label" style="padding: 10px; font-weight: bold;">Description </label>
+                            <div class="col-sm-7">
+                                <textarea type="textare" id="descriptionTdEdit" class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin:10px;">
+                        <div class="row">
+                            <label class="col-sm-3 control-label" style="padding: 10px; font-weight: bold;">Price </label>
+                            <div class="col-sm-7">
+                                <input type="text" id="priceIdEdit" class="form-control" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin:10px;">
+                        <div class="row">
+                            <label class="col-sm-3 control-label" style="padding: 10px; font-weight: bold;">Quantity </label>
+                            <div class="col-sm-7">
+                                <input type="text" id="quantityIdEdit" class="form-control" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*?)\..*/g, '$1');" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success " onclick="updateProdDetails();">Update</button>
+                <button type="button" class="btn btn-secondary " id="CloseButtonEdit">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script src="~/js/Scripts/ProductCRUD/ProductCrudScript.js"></script>
+    <script>
+        $(document).ready(function () {
+          
+            $("#CloseButton").click(function () {
+                $("#ProductModal input").val("");
+                $("#ProductModal textarea").val("");
+                $("#ProductModal").hide();
+            });
+            $("#CloseButtonEdit").click(function () {
+                $("#ProductUpdateModal input").val("");
+                $("#ProductUpdateModal textarea").val("");
+                $("#ProductUpdateModal").hide();
+            });
+        });
+    </script>
+}
+
