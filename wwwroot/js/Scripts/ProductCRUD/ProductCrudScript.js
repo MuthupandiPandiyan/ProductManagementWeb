@@ -7,7 +7,7 @@ function getProductDetails() {
 }
 
 function getProductDetailsSuccess(result) {
-    console.log(result);
+
     if (result.length > 0) {
 
         var productTable = $("#ProductTblBody");
@@ -30,20 +30,44 @@ function getProductDetailsSuccess(result) {
 }
 
 
+
 $(document).on("click", "[del-product-id]", function () {
     var productID = $(this).attr("del-product-id");
-    _Ajax("post", "/products/deleteconfirmed?id=" + productID, "", "", "application/json", deleteProdSuccess, null, true, false);
+    _Ajax("post", "/products/deleteconfirmed?id=" + productID, "", "", "application/json", function () {
+        var cartCookie = getMyCartData();
+        var newCart;
+        var cartData = (cartCookie) ? JSON.parse(cartCookie) : [];
+        if (cartData.length > 0) {          
+             newCart = cartData.filter(x => {
+                if (parseInt(x.productID) !== parseInt(productID)) {
+                    return x;
+                }
+            });
+        }
+        if (newCart) {
+            
+            document.cookie = "cart" + "=" + JSON.stringify(newCart) + "" + "; path=/";
+        }
+        getProductDetails();
+    }, null, true, false);
 });
 $(document).on("click", "[edit-prod-id]", function () {
     var productID = $(this).attr("edit-prod-id");
     _Ajax("get", "/products/geteditdetails", { id: productID }, "", "application/json", editProdSuccess, null, true, false);
 
 });
-function deleteProdSuccess() {
-    getProductDetails();
+
+function getMyCartData() {
+    var nameEQ = "cart" + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) === ' ')
+            c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) === 0)
+            return decodeURIComponent(c.substring(nameEQ.length, c.length));
+    }
 }
-
-
 function editProdSuccess(result) {
     $('#productIdEdit').val(result.id);
     $('#nameIdEdit').val(result.name);

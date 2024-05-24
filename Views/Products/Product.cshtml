@@ -1,22 +1,14 @@
 ﻿@{ ViewBag.Title = "ProductList";}
 
-<style>
-    #ProductList img {
-        max-width: 300px;
-    }
-</style>
-
-
-
 <h2 style="text-align: center;">Product List</h2>
 <input class="form-control" placeholder="search" id="search" />
-<div id="ProductList" class="col-sm-12">
+<div id="ProductList" class="col-sm-12" style="display:flex;flex-wrap:wrap;">
 
 </div>
 
 
 
-<div class="modal fade" id="quantityModal" tabindex="-1" role="dialog" aria-labelledby="quantityModal" aria-hidden="true">
+<div class="modal" id="quantityModal" tabindex="-1" role="dialog" aria-labelledby="quantityModal" aria-hidden="true">
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -30,7 +22,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button"  addcart-product-name  addcart-product-id add-cart-price class="btn btn-warning">Add To Cart</button>
+                <button type="button" addcart-product-name addcart-product-id add-cart-price class="btn btn-warning">Add To Cart</button>
             </div>
         </div>
     </div>

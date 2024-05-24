@@ -41,7 +41,7 @@ function renderProductData(result) {
     var prodListDiv = $("#ProductList");
     $(prodListDiv).empty();
     result.forEach((x, y) => {
-        $(prodListDiv).append(`<div class="col-sm-3" style="padding:10px;">
+        $(prodListDiv).append(`<div class="col-sm-3" style="padding:10px;text-align: center;">
         <div class="box-shadow"  style="display: grid; ">
             <div style="text-align:center;">
                 <h4>${x.name}</h4>
@@ -90,10 +90,9 @@ $(document).on("click", "[addcart-product-id]", function () {
     var name = $(this).attr("addcart-product-name");
     var qty = $("#CartQty").val();
     if (qty > 0) {
+
         var cartCookie = getMyCartData();
-
         var cartData = (cartCookie) ? JSON.parse(cartCookie) : [];
-
         var existingData = cartData.filter(x => {
             if (parseInt(x.productID) === parseInt(productID)) {
                 return x;
@@ -115,10 +114,10 @@ $(document).on("click", "[addcart-product-id]", function () {
                 name: name
             });
         }
-
+     
         document.cookie = "cart" + "=" + JSON.stringify(cartData) + "" + "; path=/";
 
-        $("#quantityModal").hide();
+        $('#quantityModal').modal('toggle');
 
     }
     else {
