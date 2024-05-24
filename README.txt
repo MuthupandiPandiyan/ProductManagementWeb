@@ -1,6 +1,6 @@
  1) version ---> .NET EF CORE 5
 
- 2) using MS SQL server
+ 2) using MS SQL server(Change server name in appsettings.json file)
 
  3) using code first approach in EFCore
 
@@ -23,6 +23,8 @@
  7) After Adding quantity the product details listed in the my cart page.
 
  8) In the my cart page you can search the product by name in search bar.
+
+ 9) Use Logout button to exit from the application.(Redirected to Login Page)
 
 
 
